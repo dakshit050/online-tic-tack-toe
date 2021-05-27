@@ -9,7 +9,6 @@ $(".tic").click(function () {
 });
 
 function playerTurn(turn, id) {
-console.log(localgame);
     if (gameOn) {
         var spotTaken = $("#" + id).text();
         if (spotTaken === "#") {

@@ -1,16 +1,15 @@
-const url = 'http://127.0.0.1:8080';
+const url = window.location.href;
 let stompClient;
 let gameId;
 let playerType;
 let localgame;
 
 function connectToSocket(gameId) {
-    let socket = new SockJS(url + "/gameplay");
+    let socket = new SockJS(url + "gameplay");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         stompClient.subscribe("/topic/game-progress/" + gameId, function (response) {
             let data = JSON.parse(response.body);
-            console.log(data);
             gameOn=true;
             displayResponse(data);
         })
@@ -37,7 +36,7 @@ let player1=document.getElementById("player1").value;
                 reset();
                 connectToSocket(gameId);
                 gameOn=true;
-                alert(gameId);
+                alert("send this Id with your Friend: "+gameId);
             },error:(error)=>{
                 console.log(error);
             }
@@ -67,6 +66,7 @@ function connectToRandom() {
                 alert("Congrats you're playing with: " + data.player1.playerName);
             },
             error: (error)=>{
+                alert("Currently No one is here To Play With You ");
                 console.log(error);
             }
         })
